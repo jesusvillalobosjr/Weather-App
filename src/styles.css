@@ -1,0 +1,93 @@
+:root{
+    --main-font: "Cinzel", serif;
+    --search-font-size: 1.2rem;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body,html{
+    margin: 0;
+    padding: 0;
+}
+
+.weather-app-header{
+    background-color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--main-font);
+}
+
+.weather-app-header .weather-app-title{
+    margin: 0;
+    color: white;
+}
+
+.weather-data-container{
+    height: 95vh;
+    width: 100%;
+    background-image: url(https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?cs=srgb&dl=pexels-jplenio-1118873.jpg&fm=jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-data-container form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.weather-data-container form .weather-search{
+    background-color: black;
+    width: 60%;
+    display: flex;
+}
+
+.weather-data-container form .weather-search input[type='text']{
+    background-color: rgb(70, 70, 70);
+    border: none;
+    font-size: var(--search-font-size);
+    color: white;
+    flex: 1;
+}
+
+.weather-data-container form .weather-search button[type='submit']{
+    background-color: gray;
+    border: none;
+    color: white;
+    font-family: var(--main-font);
+    font-size: var(--search-font-size);
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.weather-data-container form .weather-search button[type='submit']:hover{
+    background-color: black;
+}
+
+.weather-data-container .location-weather-information{
+    color: white;
+    font-family: var(--main-font);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-data-container .location-future-forecasts{
+    width: 80%;
+    display: flex;
+}
+
+.weather-data-container .location-future-forecasts .day-forecast{
+    color: white;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+}
