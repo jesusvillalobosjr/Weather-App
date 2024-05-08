@@ -79,6 +79,11 @@ body,html{
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+}
+
+.weather-data-container .location-weather-information * {
+    margin: 0;
 }
 
 .weather-data-container .location-future-forecasts{
@@ -100,4 +105,12 @@ body,html{
 
 .weather-data-container .location-future-forecasts .day-forecast *{
     margin: 0;
+}
+
+.fahrenheit::after{
+    content: ' F°';
+}
+
+.celcius::after{
+    content: ' C°';
 }

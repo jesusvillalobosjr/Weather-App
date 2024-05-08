@@ -1,4 +1,4 @@
-import {format} from 'date-fns';
+import {format, parseISO} from 'date-fns';
 
 function convertDateAndTimeFormat(date) {
     const formattedDate = format(date, `PPpp`);
@@ -6,7 +6,7 @@ function convertDateAndTimeFormat(date) {
 }
 
 function convertDateToWeekDay(date) {
-    const formattedDate = format(date,'EEEE');
+    const formattedDate = format(parseISO(date),'EEEE');
     return formattedDate;
 }
 
