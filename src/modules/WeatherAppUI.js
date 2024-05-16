@@ -49,7 +49,6 @@ class WeatherAppUI {
     
             this.initialSearch();
     
-            console.log(data);
             search.value = '';
         } catch(error) {
             const search = document.querySelector('.location-search');
@@ -69,7 +68,6 @@ class WeatherAppUI {
         search.setCustomValidity('');
         const errorMessage = document.querySelector('.error-message');
         errorMessage.textContent = '';
-        console.log(search.validity);
     }
 
     setWeather() {
