@@ -34,6 +34,7 @@ body,html{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .weather-data-container form{
@@ -42,10 +43,10 @@ body,html{
     justify-content: center;
     align-items: center;
     padding: 10px;
+    flex-direction: column;
 }
 
 .weather-data-container form .weather-search{
-    background-color: black;
     width: 60%;
     display: flex;
 }
@@ -72,6 +73,13 @@ body,html{
     background-color: black;
 }
 
+.weather-data-container form .error-message{
+    color: red;
+    display: block;
+    background-color: black;
+    width: 60%;
+}
+
 .weather-data-container .location-weather-information{
     color: white;
     font-family: var(--main-font);
@@ -80,6 +88,8 @@ body,html{
     flex-direction: column;
     align-items: center;
     gap: 20px;
+
+    display: none;
 }
 
 .weather-data-container .location-weather-information * {
@@ -89,6 +99,8 @@ body,html{
 .weather-data-container .location-future-forecasts{
     width: 80%;
     display: flex;
+
+    display: none;
 }
 
 .weather-data-container .location-future-forecasts .day-forecast{
@@ -113,4 +125,8 @@ body,html{
 
 .celcius::after{
     content: ' C°';
+}
+
+.shift-up{
+    margin-bottom: auto;
 }

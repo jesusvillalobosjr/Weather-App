@@ -16,6 +16,7 @@ class WeatherAppUI {
     setEvents() {
         this.setSearchButtonEvent();
         this.setDegreeConversionButtonEvent();
+        this.setSearchBarEvent();
     }
 
     setSearchButtonEvent() {
@@ -28,25 +29,47 @@ class WeatherAppUI {
         degreeConversion.addEventListener('click',() => this.handleDegreeConversionClick());
     }
 
-    async handleSearchButtonClick(event) {
-        event.preventDefault();
+    setSearchBarEvent() {
         const search = document.querySelector('.location-search');
-        const searchInput = search.value;
-        const data = await getWeather(searchInput);
-        this.locationData = data;
+        search.addEventListener('input', () => this.handleSearchBarTyping());
+    }
 
-        this.setCurrentWeatherInformation(data);
-
-        const forecastSlots = document.querySelectorAll('.day-forecast');
-        forecastSlots.forEach((forecastSlot,index) => this.setFutureForecast(forecastSlot,data.forecast.forecastday[index + 1]));
-
-        console.log(data);
-        search.value = '';
+    async handleSearchButtonClick(event) {
+        try {
+            event.preventDefault();
+            const search = document.querySelector('.location-search');
+            const searchInput = search.value;
+            const data = await getWeather(searchInput);
+            this.locationData = data;
+    
+            this.setCurrentWeatherInformation(data);
+    
+            const forecastSlots = document.querySelectorAll('.day-forecast');
+            forecastSlots.forEach((forecastSlot,index) => this.setFutureForecast(forecastSlot,data.forecast.forecastday[index + 1]));
+    
+            this.initialSearch();
+    
+            console.log(data);
+            search.value = '';
+        } catch(error) {
+            const search = document.querySelector('.location-search');
+            search.setCustomValidity(error.message);
+            const errorMessage = document.querySelector('.error-message');
+            errorMessage.textContent = error.message;
+        }
     }
 
     handleDegreeConversionClick() {
         this.degrees = this.isCelcius() ? 'f' : 'c';
         this.setWeather();
+    }
+
+    handleSearchBarTyping() {
+        const search = document.querySelector('.location-search');
+        search.setCustomValidity('');
+        const errorMessage = document.querySelector('.error-message');
+        errorMessage.textContent = '';
+        console.log(search.validity);
     }
 
     setWeather() {
@@ -77,7 +100,7 @@ class WeatherAppUI {
         description.textContent = data.current.condition.text;
 
         const location = document.querySelector('.forecast-location');
-        location.textContent = `${data.location.name}, ${data.location.region}`
+        location.textContent = `${data.location.name}, ${data.location.region ? data.location.region : data.location.country}`;
 
         const dateAndTime = document.querySelector('.forecast-date-and-time');
         dateAndTime.textContent = convertDateAndTimeFormat(data.location.localtime);
@@ -105,6 +128,29 @@ class WeatherAppUI {
 
     changeDegreeClass(defaultClass,degreeContainer) {
         degreeContainer.classList = this.isCelcius() ? `${defaultClass} celcius` : `${defaultClass} fahrenheit`;
+    }
+
+    initialSearch() {
+        const weatherInformation = document.querySelector('.location-weather-information');
+        if(getComputedStyle(weatherInformation).display === 'none') {
+            this.#displayHiddenWeather();
+            this.#shiftLayout();
+        }
+    }
+
+    #displayHiddenWeather() {
+        const weatherInformation = document.querySelector('.location-weather-information');
+        const futureForecast = document.querySelector('.location-future-forecasts');
+
+        weatherInformation.style.display = 'flex';
+        futureForecast.style.display = 'flex';
+    }
+
+    #shiftLayout() {
+        const formContainer = document.querySelector('form');
+        const futureForecast = document.querySelector('.location-future-forecasts');
+        formContainer.classList.add('shift-up');
+        futureForecast.classList.add('shift-up');
     }
 
     isCelcius() {
